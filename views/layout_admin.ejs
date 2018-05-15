@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=typeof title == 'undefined' ? 'Karaoke' : title%></title>
+
+        <!-- Viewport mobile tag for sensible mobile support -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+        <!--
+            Stylesheets and Preprocessors
+            ==============================
+    
+            You can always bring in CSS files manually with `<link>` tags, or asynchronously
+            using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+            of Sails' conventional asset pipeline (boilerplate Gruntfile).
+    
+            By default, stylesheets from your `assets/styles` folder are included
+            here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+            are supported. In production, your styles will be minified and concatenated into
+            a single file.
+    
+            To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+            For example, here are a few things you could do:
+    
+                + Change the order of your CSS files
+                + Import stylesheets from other directories
+                + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+        -->
+
+        <!--STYLES-->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles/datatables.min.css">
+        <link rel="stylesheet" href="/styles/font-awesome.min.css">
+        <link rel="stylesheet" href="/styles/importer.css">
+        <link rel="stylesheet" href="/styles/iziModal.min.css">
+        <link rel="stylesheet" href="/styles/jquery-confirm.css">
+        <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="/styles/style.css">
+        <!--STYLES END-->
+    </head>
+
+    <body>
+        <!-- WRAPPER -->
+        <div id="wrapper">
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="brand">
+                    <a href="/admin/home"><img src="/img/logo.png" alt="Logo" class="img-responsive logo" style="max-height: 20px"></a>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-btn">
+                        <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+                    </div>
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown" style="max-height: 80px;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="/admins/<%= req.user.image %>" class="img-circle" alt="Avatar">
+                                    <span><%= req.user.username %></span> 
+                                    <i class="icon-submenu lnr lnr-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                    <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                                    <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                                    <li><a href="/auth/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- LEFT SIDEBAR -->
+            <div id="sidebar-nav" class="sidebar">
+                <div class="sidebar-scroll">
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/admin/home" <% if(typeof(nav) !== 'undefined' && nav == 'home'){ %> class="active" <% }%>><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                            <li><a href="/admin/song" <% if(typeof(nav) !== 'undefined' && nav == 'song'){ %> class="active" <% }%> ><i class="lnr lnr-music-note"></i> <span>Songs</span></a></li>
+                            <li><a href="/admin/user" <% if(typeof(nav) !== 'undefined' && nav == 'user'){ %> class="active" <% }%>><i class="lnr lnr-users"></i> <span>Users</span></a></li>
+                            <li><a href="/admin/rank" <% if(typeof(nav) !== 'undefined' && nav == 'rank'){ %> class="active" <% }%>><i class="lnr lnr-star"></i> <span>rank song</span></a></li>
+                            <li><a href="/admin/contact" <% if(typeof(nav) !== 'undefined' && nav == 'contact'){ %> class="active" <% }%>><i class="lnr lnr-envelope" ></i> <span>Contact</span></a></li>
+                            <li><a href="/admin/request" <% if(typeof(nav) !== 'undefined' && nav == 'request'){ %> class="active" <% }%>><i class="lnr lnr-bubble" ></i> <span>Request</span></a></li>
+                            <li><a href="/admin/event" <% if(typeof(nav) !== 'undefined' && nav == 'event'){ %> class="active" <% }%>><i class="lnr lnr-calendar-full" ></i> <span>Event</span></a></li>
+                            <!--<li><a href="/admin/tournament" <% if(typeof(nav) !== 'undefined' && nav == 'tournament'){ %> class="active" <% }%>><i class="lnr lnr-chart-bars" ></i> <span>Tournament</span></a></li>-->
+                            <!--<li><a href="#" class=""><i class="lnr lnr-alarm" ></i> <span>Notifications</span></a></li>-->
+                            <li>
+                                <a href="#subPages" data-toggle="collapse" <% if(typeof(nav) !== 'undefined' && nav == 'profile'){ %> class="active" <% }else{%> class="collapsed" <% } %>><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages" <% if(typeof(nav) !== 'undefined' && nav == 'profile'){ %> class="collapse in" <% } else {%> class="collapse" <% }%>>
+                                     <ul class="nav">
+                                        <li><a href="/admin/profile" <% if(typeof(nav) !== 'undefined' && nav == 'profile'){ %> class="active" <% }%>>Profile</a></li>
+                                    </ul>
+                                </div>
+                            </li><!--
+                            <li><a href="#" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
+                            <li><a href="#" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>-->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- END LEFT SIDEBAR -->
+            <!-- MAIN -->
+            <div class="main">
+                <div class="main-content">
+                    <div class="container-fluid">
+
+                        <%- body %>
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+            <!-- END NAVBAR -->
+            <div class="clearfix"></div>
+            <footer>
+                <div class="container-fluid">
+                    <p class="copyright">&copy; 2017 karaoke brite . All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+        <!-- END WRAPPER -->
+
+
+
+        <!--
+            Client-side Templates
+            ========================
+    
+            HTML templates are important prerequisites of modern, rich client applications.
+            To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+            that you load these templates client-side.
+    
+            By default, your Gruntfile is configured to automatically load and precompile
+            client-side JST templates in your `assets/templates` folder, then
+            include them here automatically (between TEMPLATES and TEMPLATES END).
+    
+            To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+            For example, here are a few things you could do:
+    
+                + Import templates from other directories
+                + Use a different template engine (handlebars, jade, dust, etc.)
+                + Internationalize your client-side templates using a server-side
+                  stringfile before they're served.
+        -->
+
+        <!--TEMPLATES-->
+        
+        <!--TEMPLATES END-->
+
+
+        <!--
+    
+          Client-side Javascript
+          ========================
+    
+          You can always bring in JS files manually with `script` tags, or asynchronously
+          on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+          take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+    
+          By default, files in your `assets/js` folder are included here
+          automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+          CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+          and concatenated into a single file.
+    
+          To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+          For example, here are a few things you could do:
+    
+              + Change the order of your scripts
+              + Import scripts from other directories
+              + Use a different preprocessor, like TypeScript
+    
+        -->
+
+        <!--SCRIPTS-->
+        <script src="/js/dependencies/sails.io.js"></script>
+        <script src="/js/vendor/jquery.min.js"></script>
+        <script src="/js/vendor/bootstrap.min.js"></script>
+        <script src="/js/vendor/jquery.slimscroll.min.js"></script>
+        <script src="/js/vendor/admin.js"></script>
+        <script src="/js/vendor/datatables.min.js"></script>
+        <script src="/js/vendor/iziModal.min.js"></script>
+        <script src="/js/vendor/jquery-confirm.js"></script>
+        <!--SCRIPTS END-->
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<div>
+    <h3 class="msg_success"></h3>
+</div>
+<form action="/uploadSong" method="post" id="uploadForm" enctype="multipart/form-data">
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">singer</b>
+        <input type="text" class="form-control" name="singer">
+        <p style="color:red" class="err_singer msg_error"></p>    
+    </div>
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">song_name</b>
+        <input type="text" class="form-control" name="song_name">
+        <p style="color:red" class="err_song_name msg_error"></p>    
+    </div>
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">song</b>
+        <input type="file" id="upload_song" name="song" />
+        <p style="color:red" class="err_song msg_error"></p>    
+    </div>
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">song_full</b>
+        <input type="file" id="upload_song_full" name="song_full" />
+        <p style="color:red" class="err_song_full msg_error"></p>    
+    </div>
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">file_midi</b>
+        <input type="file" id="upload_file_midi" name="file_midi" />
+        <p style="color:red" class="err_file_midi msg_error"></p>    
+    </div>
+    <div style="margin-bottom: 10px">
+        <b for="exampleSelect1">icon</b>
+        <input type="file" id="upload_icon" name="icon" />
+        <p style="color:red" class="err_icon msg_error"></p>    
+    </div>
+    <div>
+        <b for="exampleSelect1">img_ct</b>
+        <input type="file" id="upload_img_ct" name="img_ct" />
+        <p style="color:red" class="err_img_ct msg_error"></p>    
+
+    </div>
+    <div style="margin-bottom: 20px">
+
+    </div>
+    <a href="/" class="btn btn-primary"><button>back</button></a>
+    <input type="submit" class="btn btn-primary login-btn" value="submit">
+</form>
+

@@ -1,0 +1,148 @@
+<h3 class="page-title">New event</h3>
+<div class="row">
+    <div class="col-md-6">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-heading">
+                <a href="/admin/event" class="btn btn-primary">list event</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h3 class="msg_success"></h3>
+                </div>
+                <form action="/admin/create_event" method="post" id="add_event" enctype="multipart/form-data">
+                    <h4>Title</h4> 
+                    <input type="text" class="form-control" name="title">
+                    <p style="color:red" class="err_title msg_error p-t-5"></p>    
+                    <h4>Content</h4> 
+                    <input type="text" class="form-control" name="content">
+                    <p style="color:red" class="err_content msg_error p-t-5"></p>    
+                    <h4>Start date</h4> 
+                    <input type="date" class="form-control" name="start_date">
+                    <p style="color:red" class="err_start_date msg_error p-t-5"></p>    
+                    <h4>End date</h4> 
+                    <input type="date" class="form-control" name="end_date">
+                    <p style="color:red" class="err_end_date msg_error p-t-5"></p>    
+                    <h4>Image</h4> 
+                    <!--start upload iamge-->
+                    <div class="setting image_picker">
+                        <div class="settings_wrap">
+                            <label class="drop_target">
+                                <div class="image_preview"></div>
+                                <input id="inputFile" type="file" name="img"/>
+                            </label>
+                            <div class="settings_actions vertical">
+                                <a data-action="choose_from_uploaded"><i class="fa fa-picture-o"></i> Choose from Uploads</a>
+                                <a class="disabled" data-action="remove_current_image"><i class="fa fa-ban"></i> Remove Current Image</a>
+                            </div>
+                        </div>
+                        <p style="color:red" class="err_img msg_error msg_error p-t-5"></p>    
+                    </div>
+                    <!--end upload-->
+                    <div class="button-submit">
+                        <input type="submit" class="btn btn-primary login-btn" value="submit">
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+
+    /*-----------------------------------/
+     /*	CALL AJAX
+     /*----------------------------------*/
+    $("#add_event").submit(function (e) {
+        $('.msg_error').empty();
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/admin/create_event',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 400) {
+                    if (response.data.title) {
+                        $('.err_title').html(response.data.title[0].message);
+                    }
+                    if (response.data.e_ower_id) {
+                        $('.err_ower_id').html(response.data.e_ower_id[0].message);
+                    }
+                    if (response.data.content) {
+                        $('.err_content').html(response.data.content[0].message);
+                    }
+                    if (response.data.start_date) {
+                        $('.err_start_date').html(response.data.start_date[0].message);
+                    }
+                    if (response.data.end_date) {
+                        $('.err_end_date').html(response.data.end_date[0].message);
+                    }
+                    if (response.data.img) {
+                        $('.err_img').html('入力して下さい。');
+                    }
+
+                } else {
+                    $.alert('upload successfully');
+                    $dropimg.css('background-image', '');
+                    $('#add_event')[0].reset();
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+        return false;
+    });
+    /**
+     * UPLOAD IMAGE
+     */
+    var $dropzone = $('.image_picker'),
+            $droptarget = $('.drop_target'),
+            $dropinput = $('#inputFile'),
+            $dropimg = $('.image_preview'),
+            $remover = $('[data-action="remove_current_image"]');
+    // preview image 
+    function previewFile() {
+        $('.image_picker .msg_error').empty();
+        var file = $dropinput.get(0).files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            $dropimg.css('background-image', 'url(' + reader.result + ')');
+        }
+
+        if (file) {
+            $droptarget.addClass('dropped');
+            $remover.removeClass('disabled');
+            reader.readAsDataURL(file);
+        } else {
+            $dropimg.css('background-image', 'url(' + '' + ')');
+        }
+    }
+    // choose image
+    $dropinput.change(function (e) {
+        previewFile();
+    });
+    // remove image
+    $remover.on('click', function () {
+        $dropinput.val('');
+        $dropimg.css('background-image', '');
+        $droptarget.removeClass('dropped');
+        $remover.addClass('disabled');
+    });
+
+</script>
+
+

@@ -1,0 +1,636 @@
+<h3 class="page-title">Team event : <%= data_event.title %></h3>
+
+<div class="row">
+    <div id="modal-ajax" data-izimodal-title="Add team">
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 北海道</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '北海道') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="北海道" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '北海道') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="北海道" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '北海道') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="北海道" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '北海道') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="北海道" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 東北</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '東北') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="東北" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '東北') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="東北" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '東北') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="東北" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '東北') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="東北" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 関東</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '関東') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="関東" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '関東') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="関東" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '関東') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="関東" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '関東') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="関東" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 中部</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中部') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中部" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中部') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中部" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中部') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中部" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中部') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中部" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 近畿</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '近畿') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="近畿" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '近畿') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="近畿" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '近畿') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="近畿" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '近畿') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="近畿" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 中国</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中国" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中国" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中国" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '中国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="中国" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 四国</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '四国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="四国" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '四国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="四国" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '四国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="四国" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '四国') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="四国" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 九州</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '九州') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="九州" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '九州') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="九州" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '九州') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="九州" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '九州') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="九州" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">City : 沖縄</h3>
+            </div>
+            <div class="panel-body">
+                <div id="demo-line-chart" class="ct-chart">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 1</p>
+                            <%  result.team_1.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '沖縄') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="沖縄" data-team='1' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                        <div class="col-md-6">
+                            <p>team 2</p>
+                            <%  result.team_2.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '沖縄') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="沖縄" data-team='2' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>team 3</p>
+                            <%  result.team_3.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '沖縄') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="沖縄" data-team='3' data-event="<%= data_event.id %>">add</button>
+                        </div> <div class="col-md-6">
+                            <p>team 4</p>
+                            <%  result.team_4.forEach(function (el, index) { %>
+                            <% if(typeof(el.user_id_1) != 'undefined' && el.city == '沖縄') {%>
+                            <p><%= el.user_id_1.username %></p>
+                            <p><%= el.user_id_2.username %></p>
+                            <%  } %>
+                            <%  }); %>
+                            <button class="btn btn-primary trigger-ajax" data-city="沖縄" data-team='4' data-event="<%= data_event.id %>">add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/vendor/jquery.min.js"></script>
+
+<script type="text/javascript">
+    var team, city, event_id;
+    /* ajax add user to team */
+
+    function add_user(id_1, id_2, event, team, city, url) {
+        console.log(team);
+        var dataForm = new FormData();
+        dataForm.append('id_1', id_1);
+        dataForm.append('id_2', id_2);
+        dataForm.append('event_id', event);
+        dataForm.append('team', team);
+        dataForm.append('city', city);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: dataForm,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 204) {
+                    $("#modal-ajax .iziModal-content .err_ajax").html(response.data.message);
+                    $.alert(response.data.message);
+                } else if (response.status == 400) {
+                    $("#modal-ajax .iziModal-content .err_ajax").append(response.data.message);
+                } else {
+//                    $("#modal-ajax .iziModal-content .err_ajax").append('SUCCESS');
+                    $("#modal-ajax").iziModal('close');
+                }
+
+            }
+        })
+    }
+
+    /* JS inside the modal */
+    function openModal() {
+        $("#modal-ajax").iziModal({
+            overlayClose: false,
+            overlayColor: 'rgba(0, 0, 0, 0.6)',
+            padding: 30,
+            onOpening: function (modal) {
+                modal.startLoading();
+                var formData = new FormData();
+                formData.append('team', team);
+                formData.append('city', city);
+                $.ajax({
+                    url: '/admin/ajax_get_user_by_city',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        var data = response.data;
+                        if (response.status == 400) {
+                            $("#modal-ajax .iziModal-content").html("error");
+                            modal.stopLoading();
+                        } else {
+                            var html = "<select class='form-control select_user_1'>"
+                            $.each(data, function (index, el) {
+                                html += "<option value='" + el.id + "'>"
+                                html += el.username
+                                html += "</option>"
+                            });
+                            html += "</select>"
+                            html += "<br>"
+                            html += "<select class='form-control select_user_2'>"
+                            $.each(data, function (index, el) {
+                                html += "<option value='" + el.id + "'>"
+                                html += el.username
+                                html += "</option>"
+                            });
+                            html += "</select>"
+                            html += "<p style='color:red' class='err_ajax msg_error'></p>";
+                            html += "<button class='btn btn-success submit'>Confirm</button>";
+                            html += "<input type='hidden' class='event' value='" + event_id + "'>";
+                            html += "<input type='hidden' class='team' value='" + team + "'>";
+                            html += "<input type='hidden' class='city' value='" + city + "'>";
+                            $("#modal-ajax .iziModal-content").html(html);
+                            modal.stopLoading();
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        modal.stopLoading();
+                    },
+                });
+            }
+        });
+        $('#modal-ajax').iziModal('open')
+    }
+
+    $(document).ready(function () {
+        /* open modal */
+        $('.trigger-ajax').click(function (event) {
+            event.preventDefault();
+            team = $(this).attr('data-team');
+            city = $(this).attr('data-city');
+            event_id = $(this).attr('data-event');
+            openModal();
+        });
+
+    })
+
+    /* submit form ajax and close modal */
+    $(document).on('click', '.submit', function (event) {
+        event.preventDefault();
+        var id_1 = $('.select_user_1').val();
+        var id_2 = $('.select_user_2').val();
+        var event = $('.event').val();
+        var team = $('.team').val();
+        var city = $('.city').val();
+        console.log(team);
+        add_user(id_1, id_2, event, team, city, '/admin/ajax_add_user_to_team');
+
+    })
+
+
+</script>

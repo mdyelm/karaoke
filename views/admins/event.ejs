@@ -1,0 +1,182 @@
+<h3 class="page-title">List event</h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div style='padding: 20px'>
+                <a href="/admin/add_event" ><button class='btn btn-success'>new</button></a>
+            </div>
+            <div class="panel-body table-responsive">
+                <table id="tb_event" class="display table table-striped table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Admin</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Edit and Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+    /*-----------------------------------/
+     /*	DELETE SONG
+     /*----------------------------------*/
+    $(document).on('click', '.delete_event', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        console.log(id);
+        if (id) {
+            $.confirm({
+                title: 'Delete event',
+                content: 'Are you sure to continue?',
+                buttons: {
+                    formSubmit: {
+                        text: 'Ok',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // gọi function callAjaxDelEvent để xoá bản ghi
+                            callAjaxDelEvent(id, '/admin/delete_event');
+                        }
+                    },
+                    buttonClose: {
+                        text: 'Close',
+                        close: function () {
+                        },
+                    },
+                },
+                type: 'red',
+            });
+        } else {
+            $.alert('action is canceled');
+        }
+
+    });
+    function callAjaxDelEvent(id, url) {
+        var dataForm = new FormData();
+        dataForm.append('id', id);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: dataForm,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 204) {
+                    $('#tb_event').DataTable().ajax.reload(null, false);
+                    $.alert(response.data.message);
+                } else if (response.status == 400) {
+                    $.alert(response.data.message);
+                } else {
+                    $.alert('ok');
+                }
+
+            }
+        })
+    }
+    /*-----------------------------------/
+     /*	END DELETE SONG
+     /*----------------------------------*/
+
+
+    /*-----------------------------------/
+     /*	IZI MODAL
+     /*----------------------------------*/
+    $(document).on('click', '.trigger', function (event) {
+        event.preventDefault();
+        var el = $(this);
+        var song_name, singer;
+        song_name = el.attr('data-sn');
+        singer = el.attr('data-sg');
+        openModal(event.currentTarget.href, song_name, singer);
+    });
+
+    function openModal(url, song_name, singer) {
+        $('#modal-iframe').iziModal('destroy');
+        $("#modal-iframe").iziModal({
+            title: song_name,
+            subtitle: singer,
+            theme: "light",
+            zindex: 999,
+            headerColor: '#1d6fd6',
+            iconColor: "#fe7c73",
+            background: '#f4f4f4',
+            iframe: true,
+            iframeHeight: 500,
+            iframeURL: url,
+//            fullscreen: true,
+            borderBottom: false,
+            bodyOverflow: true,
+            restoreDefaultContent: true,
+            transitionIn: "bounceInUp",
+            transitionOut: "bounceOutDown"
+        });
+        $('#modal-iframe').iziModal('open')
+    }
+    /*-----------------------------------/
+     /*	END IZI MODAL
+     /*----------------------------------*/
+
+    $(document).ready(function () {
+
+        /*-----------------------------------/
+         / CALL API
+         /*----------------------------------*/
+        function get_data_user() {
+            var user_table = $('#tb_event').DataTable({
+                paging: true,
+                lengthChange: false,
+                searching: false,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    type: "POST",
+                    url: "/admin/ajax_list_event/",
+                    "data": function (d) {
+                        return $.extend({}, d, {
+                            "draw": $('#tb_event').DataTable().page.info().page + 1,
+
+                        });
+                    },
+
+                },
+                columns: [
+                    {"data": "a_username"},
+                    {"data": "title"},
+                    {"data": "content"},
+                    {"data": "img"},
+                    {"data": "start_date"},
+                    {"data": "end_date"},
+                    {"data": "view"},
+                    {"data": "action", "width": "15%"},
+                ],
+                "initComplete": function (settings, json) {
+                    // call your function here
+                }
+
+            });
+        }
+        get_data_user();
+    });
+</script>

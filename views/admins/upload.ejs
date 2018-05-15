@@ -1,0 +1,146 @@
+<h3 class="page-title">Upload song</h3>
+<div class="row">
+    <div class="col-md-6">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h3 class="msg_success"></h3>
+                </div>
+                <form action="/admin/create_upload" method="post" id="uploadForm" enctype="multipart/form-data">
+                    <h4>singer</h4> 
+                    <input type="text" class="form-control" name="singer">
+                    <p style="color:red" class="err_singer msg_error p-t-5"></p>    
+                    <h4>song_name</h4> 
+                    <input type="text" class="form-control" name="song_name">
+                    <p style="color:red" class="err_song_name msg_error p-t-5"></p>    
+                    <h4>song</h4> 
+                    <div class="input-group input-file" name="song">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" class="form-control" disabled="" placeholder='Choose a file...' />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                    <p style="color:red" class="err_song msg_error msg_error p-t-5"></p>    
+                    <h4>song_full</h4> 
+                    <div class="input-group input-file" name="song_full">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" class="form-control" disabled="" placeholder='Choose a file...' />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                    <p style="color:red" class="err_song_full msg_error msg_error p-t-5"></p>    
+                    <h4>file_midi</h4> 
+                    <div class="input-group input-file" name="file_midi">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" class="form-control" disabled="" placeholder='Choose a file...' />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                    <p style="color:red" class="err_file_midi msg_error msg_error p-t-5"></p>    
+                    <h4>icon</h4> 
+                    <div class="input-group input-file" name="icon">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" class="form-control" disabled="" placeholder='Choose a file...' />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                    <p style="color:red" class="err_icon msg_error msg_error p-t-5"></p>    
+                    <h4>img_ct</h4> 
+                    <div class="input-group input-file" name="img_ct">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" class="form-control" disabled="" placeholder='Choose a file...' />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                    <p style="color:red" class="err_img_ct msg_error msg_error p-t-5"></p>    
+                    <div style="margin-bottom: 20px">
+
+                    </div>
+                    <input type="submit" class="btn btn-primary login-btn" value="submit">
+                </form>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+
+    /*-----------------------------------/
+     /*	UPLOAD SONG
+     /*----------------------------------*/
+    $("#uploadForm").submit(function (e) {
+        $('.msg_error').empty();
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/admin/create_upload',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 403) {
+                    if (response.msg_error.song) {
+                        $('.err_song').html(response.msg_error.song);
+                    }
+                    if (response.msg_error.song_full) {
+                        $('.err_song_full').html(response.msg_error.song_full);
+                    }
+                    if (response.msg_error.file_midi) {
+                        $('.err_file_midi').html(response.msg_error.file_midi);
+                    }
+                    if (response.msg_error.icon) {
+                        $('.err_icon').html(response.msg_error.icon);
+                    }
+                    if (response.msg_error.img_ct) {
+                        $('.err_img_ct').html(response.msg_error.img_ct);
+                    }
+                    if (response.msg_error.singer) {
+                        $('.err_singer').html(response.msg_error.singer);
+                    }
+                    if (response.msg_error.song_name) {
+                        $('.err_song_name').html(response.msg_error.song_name);
+                    }
+
+                } else {
+                    $.alert('upload successfully');
+                    $('#uploadForm')[0].reset();
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+        return false;
+    });
+</script>
+
+

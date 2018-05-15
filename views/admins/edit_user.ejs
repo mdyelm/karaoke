@@ -1,0 +1,107 @@
+<h3 class="page-title">Edit user</h3>
+<div class="row">
+    <div class="col-md-6">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-heading">
+                <a href="/admin/user" class="btn btn-primary">list user</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h3 class="msg_success"></h3>
+                </div>
+                <form action="#" method="POST" id="uploadForm" enctype="multipart/form-data">
+                    <h4>username</h4> 
+                    <input type="text" class="form-control" name="username" <% if(datas.username != null) {%> value="<%= datas.username %>" <% } %>>
+                           <p style="color:red" class="err_username msg_error p-t-5"></p>    
+                    <h4>sex</h4> 
+                    <input type="text" class="form-control" name="sex" <% if(datas.sex != null) {%> value="<%= datas.sex %>" <% } %>>
+                           <p style="color:red" class="err_sex msg_error p-t-5"></p>    
+                    <h4>city</h4> 
+                    <select class="form-control" name="city" value="<%= datas.city %>">
+                        <%  arr_city.forEach(function (el, index) { %>
+                        <option value="<%= el.value %>" <% if (datas.city == el.value) { %> selected <% } %>><%= el.name %></option>
+                        <%  }); %>
+                        <p style="color:red" class="err_city msg_error p-t-5"></p>    
+                    </select>
+                    <h4>intro</h4> 
+                    <input type="text" class="form-control" name="intro" <% if(datas.intro != null) {%> value="<%= datas.intro %>" <% } %>>
+                           <p style="color:red" class="err_intro msg_error p-t-5"></p>    
+                    <h4>age</h4> 
+                    <input type="text" class="form-control" name="age" <% if(datas.age != null) {%> value="<%= datas.age %>" <% } %>>
+                           <p style="color:red" class="err_age msg_error p-t-5"></p>    
+                    <div class="button-submit">
+                        <input type="submit" class="btn btn-primary" value="submit">
+                        <input type="hidden" class="form-control" name="id" <% if(datas.id != null) {%> value="<%= datas.id %>" <% } %>>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+    /*-----------------------------------/
+     /*	UPLOAD SONG
+     /*----------------------------------*/
+    $("#uploadForm").submit(function (e) {
+        e.preventDefault();
+        $('.msg_error').empty();
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/admin/save_edit_user',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 404) {
+                    if (response.msg_error.username) {
+                        $('.err_username').html(response.msg_error.username[0].message);
+                    }
+                    if (response.msg_error.city) {
+                        $('.err_city').html(response.msg_error.city[0].message);
+                    }
+                    if (response.msg_error.intro) {
+                        $('.err_intro').html(response.msg_error.intro[0].message);
+                    }
+                    if (response.msg_error.sex) {
+                        $('.err_sex').html(response.msg_error.sex[0].message);
+                    }
+                    if (response.msg_error.age) {
+                        $('.err_age').html(response.msg_error.age[0].message);
+                    }
+                } else if (response.status == 400) {
+                    $(location).attr('href', '/admin/home')
+                } else {
+                    $.confirm({
+                        title: false,
+                        content: 'success!',
+                        buttons: {
+                            confirm: function () {
+                                $(location).attr('href', '/admin/user')
+                            },
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+        return false;
+    });
+</script>
+
+

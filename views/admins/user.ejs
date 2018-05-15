@@ -1,0 +1,136 @@
+<h3 class="page-title">List user</h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-body table-responsive">
+                <table id="tb_user" class="display table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>username</th>
+                            <th>avatar</th>
+                            <th>sex</th>
+                            <th>age</th>
+                            <th>city</th>
+                            <th>uuid</th>
+                            <th>hash</th>
+                            <th>edit and delete</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+    /*-----------------------------------/
+     /*	DELETE USER
+     /*----------------------------------*/
+    $(document).on('click', '.delete_user', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        console.log(id);
+        if (id) {
+            $.confirm({
+                title: 'Delete user',
+                content: 'Are you sure to continue?',
+                buttons: {
+                    formSubmit: {
+                        text: 'Ok',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // gọi function callAjaxDelUser để xoá bản ghi
+                            callAjaxDelUser(id, '/admin/delete_user');
+                        }
+                    },
+                    buttonClose: {
+                        text: 'Close',
+                        close: function () {
+                        },
+                    },
+                },
+                type: 'red',
+            });
+        } else {
+            $.alert('action is canceled');
+        }
+
+    });
+    /*-----------------------------------/
+     /*	 CONFIRM
+     /*----------------------------------*/
+    function callAjaxDelUser(id, url) {
+        var dataForm = new FormData();
+        dataForm.append('id', id);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: dataForm,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 204) {
+                    $('#tb_user').DataTable().ajax.reload(null, false);
+                    $.alert(response.data.message);
+                } else if (response.status == 400) {
+                    $.alert(response.data.message);
+                }
+            }
+        })
+    }
+    /*-----------------------------------/
+     /*	 END DELETE USER 
+     /*----------------------------------*/
+    $(document).ready(function () {
+        /*-----------------------------------/
+         /*	LIST USER
+         /*----------------------------------*/
+        function get_data_user() {
+            var user_table = $('#tb_user').DataTable({
+                paging: true,
+                lengthChange: false,
+                searching: false,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    type: "POST",
+                    url: "/admin/ajax_list_user/",
+                    "data": function (d) {
+                        return $.extend({}, d, {
+                            "draw": $('#tb_user').DataTable().page.info().page + 1,
+
+                        });
+                    },
+
+                },
+                columns: [
+                    {"data": "username"},
+                    {"data": "avatar_user"},
+                    {"data": "sex"},
+                    {"data": "age"},
+                    {"data": "city"},
+                    {"data": "uuid"},
+                    {"data": "hash"},
+                    {"data": "action", "width": "15%"},
+                ],
+                "initComplete": function (settings, json) {
+                    // call your function here
+                },
+            });
+        }
+        get_data_user();
+    });
+</script>

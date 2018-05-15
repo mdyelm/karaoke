@@ -1,0 +1,80 @@
+<div style="width: 500px; margin: 0 auto">
+    <h1>Register Admin</h1>
+    <form method="POST" id="register" action="/auth/register">
+        <input type="hidden" name="role" value="1">
+        <input type="text" name="account" placeholder="Account"><br><br>
+        <p style="color:red" class="err_account msg_error msg_error p-b-20 p-t-5"></p>    
+
+        <input type="text" name="username" placeholder="Username"><br><br>
+        <p style="color:red" class="err_username msg_error msg_error p-b-20 p-t-5"></p>    
+
+        <input type="email" name="email" placeholder="Email Address"><br><br>
+        <p style="color:red" class="err_email msg_error msg_error p-b-20 p-t-5"></p>    
+
+        <input type="password" name="password" placeholder="Password"><br><br>
+        <p style="color:red" class="err_password msg_error msg_error p-b-20 p-t-5"></p>  
+
+        <input type="file" name="image" placeholder="image"><br><br>
+        <p style="color:red" class="err_image msg_error msg_error p-b-20 p-t-5"></p>    
+
+        <input type="submit" value="submit">
+    </form>
+</div>
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+
+    /*-----------------------------------/
+     /*	CALL AJAX
+     /*----------------------------------*/
+    $("#register").submit(function (e) {
+        $('.msg_error').empty();
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/auth/register',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 400) {
+                    if (response.data.account) {
+                        $('.err_account').html(response.data.account[0].message);
+                    }
+                    if (response.data.username) {
+                        $('.err_username').html(response.data.username[0].message);
+                    }
+                    if (response.data.email) {
+                        $('.err_email').html(response.data.email[0].message);
+                    }
+                    if (response.data.password) {
+                        $('.err_password').html(response.data.password[0].message);
+                    }
+                    if (response.data.image) {
+                        $('.err_image').html('入力して下さい。');
+                    }
+
+                } else {
+                    $.confirm({
+                        title: false,
+                        content: 'success!',
+                        buttons: {
+                            confirm: function () {
+                                $(location).attr('href', '/')
+
+                            },
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+        return false;
+    });
+</script>

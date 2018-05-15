@@ -1,0 +1,60 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" action="/auth/login" method="post">
+                <span class="login100-form-title p-b-30">
+                    <p style="font-size: 25px;
+                       font-weight: bold;
+                       color: #ffffff;
+                       background-color: #000000;
+                       width: 45px;
+                       border-radius: 5px;
+                       margin: 0 auto;">K</p>
+                </span>
+                <div class="wrap-input100 validate-input" data-validate ="Enter your username">
+                    <% if (typeof(data_p) !== 'undefined'){ %>
+                    <% if (typeof(data_p.username) !== 'undefined'){ %>
+                    <input <% if(data_p.username != null && data_p.username != 'undefined') {%> class="input100 has-val" <% }else{ %> class="input100" <% }%> type="text" name="username" <% if(data_p.username != null && data_p.username != 'undefined') {%> value="<%= data_p.username %>"<% } %>>
+                        <% } %>
+                        <% } else{ %>
+                        <input class="input100" type="text" name="username">
+                    <% }%>
+                    <span class="focus-input100" data-placeholder="Username"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter your password">
+                    <!--                    <span class="btn-show-pass">
+                                            <i class="zmdi zmdi-eye"></i>
+                                        </span>-->
+                    <% if (typeof(data_p) !== 'undefined'){ %>
+                    <% if (typeof(data_p.password) !== 'undefined'){ %>
+                    <input <% if(data_p.password != null && data_p.password != 'undefined') {%> class="input100 has-val" <% }else{ %> class="input100" <% }%> type="password" name="password" <% if(data_p.password != null && data_p.password != 'undefined') {%> value="<%= data_p.password %>"<% } %>>
+                        <% } %>
+                        <% } else{ %>
+                        <input class="input100" type="password" name="password">
+                    <% }%>
+                    <span class="focus-input100" data-placeholder="Password"></span>
+                </div>
+                <span class="" style="color:red">
+                    <% if (typeof(datas) !== 'undefined'){ %>
+                    <% if (typeof(datas.message) !== 'undefined'){ %>
+                    <% if(datas.message != null) {%> <%= datas.message %> <% }else{ %> <% } %>
+                    <% } %>
+                    <% } %>
+                </span>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" type="submit">
+                            Login
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center p-t-100">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="dropDownSelect1"></div>

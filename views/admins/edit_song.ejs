@@ -1,0 +1,87 @@
+<h3 class="page-title">Edit song</h3>
+<div class="row">
+    <div class="col-md-6">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-heading">
+                <a href="/admin/song" class="btn btn-primary">list song</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h3 class="msg_success"></h3>
+                </div>
+                <form action="/admin/edit_song" method="POST" id="uploadForm" enctype="multipart/form-data">
+                    <h4>singer</h4> 
+                    <input type="text" class="form-control" name="singer" <% if(datas.singer != null) {%> value="<%= datas.singer %>" <% } %>>
+                           <p style="color:red" class="err_singer msg_error p-t-5"></p>    
+                    <h4>song_name</h4> 
+                    <input type="text" class="form-control" name="song_name" <% if(datas.song_name != null) {%> value="<%= datas.song_name %>" <% } %>>
+                           <p style="color:red" class="err_song_name msg_error p-t-5"></p>    
+                    <h4>song</h4> 
+                    <div class="button-submit">
+                        <input type="submit" class="btn btn-primary" value="submit">
+                        <input type="hidden" class="form-control" name="id" <% if(datas.id != null) {%> value="<%= datas.id %>" <% } %>>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+    /*-----------------------------------/
+     /*	UPLOAD SONG
+     /*----------------------------------*/
+    $("#uploadForm").submit(function (e) {
+        $('.msg_error').empty();
+        e.preventDefault();
+        var formData = new FormData($(this)[0]);
+        $.ajax({
+            url: '/admin/save_edit_song',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 500) {
+                    if (response.msg_error.singer) {
+                        $('.err_singer').html(response.msg_error.singer[0].message);
+                    }
+                    if (response.msg_error.song_name) {
+                        $('.err_song_name').html(response.msg_error.song_name[0].message);
+                    }
+                } else if (response.status == 400) {
+                    $(location).attr('href', '/admin/home')
+                } else {
+                    $.confirm({
+                        title: false,
+                        content: 'success!',
+                        buttons: {
+                            confirm: function () {
+                                $(location).attr('href', '/admin/song')
+                            },
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+        return false;
+    });
+</script>
+
+

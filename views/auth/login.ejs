@@ -1,0 +1,57 @@
+<!-- WRAPPER -->
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="auth-box ">
+                <!--<div class="left">-->
+                    <div class="content">
+                        <div class="header">
+                            <span class="login100-form-title p-b-30">
+                                <p style="font-size: 25px;
+                                   font-weight: bold;
+                                   color: #ffffff;
+                                   background-color: #337ab7;
+                                   width: 45px;
+                                   border-radius: 5px;
+                                   margin: 0 auto;">K</p>
+                            </span>
+                        </div>
+                        <form class="form-auth-small" action="/auth/login" method="post">
+                            <div class="form-group">
+                                <label for="signin-email" class="control-label sr-only">Acount</label>
+                                <% if (typeof(data_p) !== 'undefined'){ %>
+                                <% if (typeof(data_p.account) !== 'undefined' || typeof(data_p.account) !== ''){ %>
+                                <input type="text" class="form-control" id="signin-username" name="account" placeholder="Account" value="<%= data_p.account %>">
+                                <% } %>
+                                <% } else{ %>
+                                <input type="text" class="form-control" id="signin-username" name="account" placeholder="Account">
+                                <% }%>
+                            </div>
+                            <div class="form-group">
+                                <label for="signin-password" class="control-label sr-only">Password</label>
+                                <% if (typeof(data_p) !== 'undefined'){ %>
+                                <% if (typeof(data_p.password) !== 'undefined' || typeof(data_p.password) !== ''){ %>
+                                <input type="password" class="form-control" id="signin-username" name="password" placeholder="Password" value="<%= data_p.password %>">
+                                <% } %>
+                                <% } else{ %>
+                                <input type="password" class="form-control" id="signin-password" name="password" placeholder="Password">
+                                <% }%>
+                            </div>
+                            <span class="" style="color:red">
+                                <% if (typeof(datas) !== 'undefined'){ %>
+                                <% if (typeof(datas.message) !== 'undefined'){ %>
+                                <% if(datas.message != null) {%> <%= datas.message %> <% }else{ %> <% } %>
+                                <% } %>
+                                <% } %>
+                            </span>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                            <div class="bottom">
+                                <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
+                            </div>
+                        </form>
+                    </div>
+                <!--</div>-->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>

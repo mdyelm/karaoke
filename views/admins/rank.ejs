@@ -1,0 +1,188 @@
+<h3 class="page-title">List rank</h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div class="panel-body table-responsive">
+                <button type="button" class="btn btn-info sort_rank" data-id="1">year</button>
+                <button type="button" class="btn btn-info sort_rank" data-id="2">month</button>
+                <button type="button" class="btn btn-info sort_rank" data-id="3">week</button>
+                <input type="hidden" id="type_sort" value="1">
+                <table id="tb_rank" class="display table table-striped table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">user</th>
+                            <th scope="col">uuid</th>
+                            <th scope="col">video</th>
+                            <th scope="col">song name</th>
+                            <th scope="col">score</th>
+                            <th scope="col">delete</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+
+    /*-----------------------------------/
+     /*	DELETE SONG
+     /*----------------------------------*/
+    $(document).on('click', '.delete_rank', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        if (id) {
+            $.confirm({
+                title: 'Delete song',
+                content: 'Are you sure to continue?',
+                buttons: {
+                    formSubmit: {
+                        text: 'Ok',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // gọi function callAjaxDelSong để xoá bản ghi
+                            callAjaxDelSong(id, '/admin/delete_rank');
+                        }
+                    },
+                    buttonClose: {
+                        text: 'Close',
+                        close: function () {
+                        },
+                    },
+                },
+                type: 'red',
+            });
+        } else {
+            $.alert('action is canceled');
+        }
+    });
+    /*-----------------------------------/
+     /* CONFIRM 
+     /*----------------------------------*/
+    function callAjaxDelSong(id, url) {
+        var dataForm = new FormData();
+        dataForm.append('id', id);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: dataForm,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 204) {
+                    $('#tb_rank').DataTable().ajax.reload(null, false);
+                    $.alert(response.data.message);
+                } else if (response.status == 400) {
+                    $.alert(response.data.message);
+                } else {
+                    $.alert('ok');
+                }
+
+            }
+        })
+    }
+    /*-----------------------------------/
+     /* END DELETE SONG 
+     /*----------------------------------*/
+
+    /*-----------------------------------/
+     /*	IZI MODAL
+     /*----------------------------------*/
+    $(document).on('click', '.trigger', function (event) {
+        event.preventDefault();
+        var el = $(this);
+        var song_name, singer;
+        song_name = el.attr('data-sn');
+        singer = el.attr('data-sg');
+        openModal(event.currentTarget.href, song_name, singer);
+    });
+    function openModal(url, song_name, singer) {
+        $('#modal-iframe').iziModal('destroy');
+        $("#modal-iframe").iziModal({
+            title: song_name,
+            subtitle: singer,
+            theme: "light",
+            zindex: 999,
+            headerColor: '#1d6fd6',
+            iconColor: "#fe7c73",
+            background: '#f4f4f4',
+            iframe: true,
+            iframeHeight: 500,
+            iframeURL: url,
+//            fullscreen: true,
+            borderBottom: false,
+            bodyOverflow: true,
+            restoreDefaultContent: true,
+            transitionIn: "bounceInUp",
+            transitionOut: "bounceOutDown"
+        });
+        $('#modal-iframe').iziModal('open')
+    }
+    /*-----------------------------------/
+     /*	CALL AJAX 
+     /*----------------------------------*/
+    function get_data() {
+        console.log('??');
+        $('#tb_rank').DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                type: "POST",
+                url: "/admin/ajax_list_rank_score/",
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        "page": $('#tb_rank').DataTable().page.info().page + 1,
+                        "type": $('#type_sort').val(),
+                    });
+                },
+            },
+            columns: [
+                {"data": "username"},
+                {"data": "uuid"},
+                {"data": "path"},
+                {"data": "song_name"},
+                {"data": "final_score"},
+                {"data": "action", "width": "10%"},
+            ],
+            "createdRow": function (settings, json) {
+            }
+        });
+    }
+    $(document).ready(function () {
+        /*-----------------------------------/
+         /*	SORT BY TYPE
+         /*----------------------------------*/
+        $(document).on('click', '.sort_rank', function (e) {
+            e.preventDefault();
+            var type = $(this).attr('data-id');
+            console.log(type);
+            if (type) {
+                $('#type_sort').val(type);
+                $("#tb_rank").DataTable().ajax.reload();
+            } else {
+                $.alert('action is canceled');
+            }
+        });
+
+        get_data();
+    });
+
+</script>

@@ -1,0 +1,180 @@
+<h3 class="page-title">List song</h3>
+<div class="row">
+    <div class="col-md-12">
+        <!-- INPUTS -->
+        <div class="panel">
+            <div style='padding: 20px'>
+                <a href="/admin/add_upload" ><button class='btn btn-success'>New</button></a>
+            </div>
+            <div class="panel-body table-responsive">
+                <table id="tb_song" class="display table table-striped table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Song name</th>
+                            <th scope="col">Singer</th>
+                            <th scope="col">video</th>
+                            <th scope="col">video full</th>
+                            <th scope="col">Icon</th>
+                            <th scope="col">Image content</th>
+                            <th scope="col">Edit and Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- END INPUTS -->
+
+
+    </div>
+</div>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript">
+    /*-----------------------------------/
+     /*	DELETE SONG
+     /*----------------------------------*/
+    $(document).on('click', '.delete_song', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        console.log(id);
+        if (id) {
+            $.confirm({
+                title: 'Delete song',
+                content: 'Are you sure to continue?',
+                buttons: {
+                    formSubmit: {
+                        text: 'Ok',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // gọi function callAjaxDelSong để xoá bản ghi
+                            callAjaxDelSong(id, '/admin/delete_song');
+                        }
+                    },
+                    buttonClose: {
+                        text: 'Close',
+                        close: function () {
+                        },
+                    },
+                },
+                type: 'red',
+            });
+        } else {
+            $.alert('action is canceled');
+        }
+
+    });
+    function callAjaxDelSong(id, url) {
+        var dataForm = new FormData();
+        dataForm.append('id', id);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: dataForm,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status == 204) {
+                    $('#tb_song').DataTable().ajax.reload(null, false);
+                    $.alert(response.data.message);
+                } else if (response.status == 400) {
+                    $.alert(response.data.message);
+                } else {
+                    $.alert('ok');
+                }
+
+            }
+        })
+    }
+    /*-----------------------------------/
+     /*	END DELETE SONG
+     /*----------------------------------*/
+
+
+    /*-----------------------------------/
+     /*	IZI MODAL
+     /*----------------------------------*/
+    $(document).on('click', '.trigger', function (event) {
+        event.preventDefault();
+        var el = $(this);
+        var song_name, singer;
+        song_name = el.attr('data-sn');
+        singer = el.attr('data-sg');
+        openModal(event.currentTarget.href, song_name, singer);
+    });
+
+    function openModal(url, song_name, singer) {
+        $('#modal-iframe').iziModal('destroy');
+        $("#modal-iframe").iziModal({
+            title: song_name,
+            subtitle: singer,
+            theme: "light",
+            zindex: 999,
+            headerColor: '#1d6fd6',
+            iconColor: "#fe7c73",
+            background: '#f4f4f4',
+            iframe: true,
+            iframeHeight: 500,
+            iframeURL: url,
+//            fullscreen: true,
+            borderBottom: false,
+            bodyOverflow: true,
+            restoreDefaultContent: true,
+            transitionIn: "bounceInUp",
+            transitionOut: "bounceOutDown"
+        });
+        $('#modal-iframe').iziModal('open')
+    }
+    /*-----------------------------------/
+     /*	END IZI MODAL
+     /*----------------------------------*/
+
+    $(document).ready(function () {
+
+        /*-----------------------------------/
+         / CALL API
+         /*----------------------------------*/
+        function get_data_user() {
+            var user_table = $('#tb_song').DataTable({
+                paging: true,
+                lengthChange: false,
+                searching: false,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    type: "POST",
+                    url: "/admin/ajax_list_song/",
+                    "data": function (d) {
+                        return $.extend({}, d, {
+                            "draw": $('#tb_song').DataTable().page.info().page + 1,
+
+                        });
+                    },
+
+                },
+                columns: [
+                    {"data": "song_name"},
+                    {"data": "singer"},
+                    {"data": "path"},
+                    {"data": "path_full"},
+                    {"data": "icon"},
+                    {"data": "img_ct"},
+                    {"data": "action", "width": "15%"},
+                ],
+                "initComplete": function (settings, json) {
+                    // call your function here
+                }
+
+            });
+        }
+        get_data_user();
+    });
+</script>
